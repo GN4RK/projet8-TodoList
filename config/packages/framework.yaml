@@ -8,13 +8,10 @@ framework:
     validation:      { enable_annotations: true }
     #serializer:      { enable_annotations: true }
     default_locale:  "%locale%"
-    trusted_hosts:   ~
     # trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  ~
-    fragments:       ~
-    http_method_override: true
     assets: ~
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
@@ -28,6 +25,6 @@ framework:
     #     cookie_samesite: lax
 
     #esi: true
-    #fragments: true
+    fragments: true
     php_errors:
         log: true
