@@ -1,6 +1,3 @@
-imports:
-    - { resource: config.yml }
-
 monolog:
     handlers:
         main:
@@ -8,17 +5,15 @@ monolog:
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
             channels: ["!event"]
-        console:
-            type:   console
-            channels: ["!event", "!doctrine"]
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
-        #    type:   firephp
-        #    level:  info
+        #    type: firephp
+        #    level: info
         #chromephp:
-        #    type:   chromephp
-        #    level:  info
-
-#swiftmailer:
-#    delivery_address: me@example.com
+        #    type: chromephp
+        #    level: info
+        console:
+            type: console
+            process_psr_3_messages: false
+            channels: ["!event", "!doctrine", "!console"]
