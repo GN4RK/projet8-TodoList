@@ -25,20 +25,10 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login_check", name="login_check")
-     */
-    public function loginCheck()
-    {
-        // This code is never executed.
-        return new Response();
-    }
-
-    /**
      * @Route("/logout", name="logout")
      */
-    public function logoutCheck()
+    public function logout(): void
     {
-        // This code is never executed.
-        return new Response();
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
