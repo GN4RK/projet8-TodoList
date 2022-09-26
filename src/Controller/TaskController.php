@@ -11,17 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TaskController extends AbstractController
 {
-    /**
-     * @Route("/tasks", name="task_list")
-     */
+    #[Route('/tasks', name: 'task_list')]
     public function list(ManagerRegistry $doctrine)
     {
         return $this->render('task/list.html.twig', ['tasks' => $doctrine->getRepository(Task::class)->findAll()]);
     }
 
-    /**
-     * @Route("/tasks/create", name="task_create")
-     */
+    #[Route('/tasks/create', name: 'task_create')]
     public function create(ManagerRegistry $doctrine, Request $request)
     {
         $task = new Task();
@@ -43,9 +39,7 @@ class TaskController extends AbstractController
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/tasks/{id}/edit", name="task_edit")
-     */
+    #[Route('/tasks/{id}/edit', name: 'task_edit')]
     public function edit(ManagerRegistry $doctrine, Task $task, Request $request)
     {
         $form = $this->createForm(TaskType::class, $task);
@@ -66,9 +60,7 @@ class TaskController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/tasks/{id}/toggle", name="task_toggle")
-     */
+    #[Route('/tasks/{id}/toggle', name: 'task_toggle')]
     public function toggleTask(ManagerRegistry $doctrine, Task $task)
     {
         $task->toggle(!$task->isDone());
@@ -79,12 +71,10 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('task_list');
     }
 
-    /**
-     * @Route("/tasks/{id}/delete", name="task_delete")
-     */
+    #[Route('/tasks/{id}/delete', name: 'task_delete')]
     public function deleteTask(ManagerRegistry $doctrine, Task $task)
     {
-        $em = $doctrine()->getManager();
+        $em = $doctrine->getManager();
         $em->remove($task);
         $em->flush();
 
