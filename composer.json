@@ -56,7 +56,9 @@
         "symfony/serializer": "6.1.*",
         "symfony/string": "6.1.*",
         "symfony/translation": "6.1.*",
-        "symfony/web-link": "6.1.*"
+        "symfony/web-link": "6.1.*",
+        "symfony/apache-pack": "^1.0",
+        "amphp/http-client": "^4.6"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^6.0",
