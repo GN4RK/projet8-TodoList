@@ -15,7 +15,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users", name="user_list")
      */
-    public function listAction(ManagerRegistry $doctrine)
+    public function list(ManagerRegistry $doctrine)
     {
         return $this->render('user/list.html.twig', ['users' => $doctrine->getRepository(User::class)->findAll()]);
     }
@@ -23,7 +23,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, Request $request)
+    public function create(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, Request $request)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -51,7 +51,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(ManagerRegistry $doctrine, User $user, UserPasswordHasherInterface $passwordHasher, Request $request)
+    public function edit(ManagerRegistry $doctrine, User $user, UserPasswordHasherInterface $passwordHasher, Request $request)
     {
         $form = $this->createForm(UserType::class, $user);
 

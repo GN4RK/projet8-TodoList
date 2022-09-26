@@ -14,7 +14,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks", name="task_list")
      */
-    public function listAction(ManagerRegistry $doctrine)
+    public function list(ManagerRegistry $doctrine)
     {
         return $this->render('task/list.html.twig', ['tasks' => $doctrine->getRepository(Task::class)->findAll()]);
     }
@@ -22,7 +22,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function createAction(ManagerRegistry $doctrine, Request $request)
+    public function create(ManagerRegistry $doctrine, Request $request)
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -46,7 +46,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function editAction(ManagerRegistry $doctrine, Task $task, Request $request)
+    public function edit(ManagerRegistry $doctrine, Task $task, Request $request)
     {
         $form = $this->createForm(TaskType::class, $task);
 
@@ -69,7 +69,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
-    public function toggleTaskAction(ManagerRegistry $doctrine, Task $task)
+    public function toggleTask(ManagerRegistry $doctrine, Task $task)
     {
         $task->toggle(!$task->isDone());
         $doctrine->getManager()->flush();
@@ -82,7 +82,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function deleteTaskAction(ManagerRegistry $doctrine, Task $task)
+    public function deleteTask(ManagerRegistry $doctrine, Task $task)
     {
         $em = $doctrine()->getManager();
         $em->remove($task);
