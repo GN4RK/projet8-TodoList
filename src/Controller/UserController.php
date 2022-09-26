@@ -8,22 +8,19 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/users", name="user_list")
-     */
-    public function list(ManagerRegistry $doctrine)
+    #[Route('/users', name: 'user_list')]
+    public function list(ManagerRegistry $doctrine): Response
     {
         return $this->render('user/list.html.twig', ['users' => $doctrine->getRepository(User::class)->findAll()]);
     }
 
-    /**
-     * @Route("/users/create", name="user_create")
-     */
-    public function create(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, Request $request)
+    #[Route('/users/create', name: 'user_create')]
+    public function create(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -48,10 +45,8 @@ class UserController extends AbstractController
         return $this->render('user/create.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/users/{id}/edit", name="user_edit")
-     */
-    public function edit(ManagerRegistry $doctrine, User $user, UserPasswordHasherInterface $passwordHasher, Request $request)
+    #[Route('/users/{id}/edit', name: 'user_edit')]
+    public function edit(ManagerRegistry $doctrine, User $user, UserPasswordHasherInterface $passwordHasher, Request $request): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
