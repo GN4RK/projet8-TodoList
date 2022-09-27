@@ -45,6 +45,13 @@ class TaskController extends AbstractController
     #[Route('/tasks/{id}/edit', name: 'task_edit')]
     public function edit(ManagerRegistry $doctrine, Task $task, Request $request): Response
     {
+        // can the user edit this task ?
+        $hasAccess = $this->isGranted('edit', $task);
+        if (!$hasAccess) {
+            $this->addFlash('error', 'Accès non authorisé.');
+        }
+        $this->denyAccessUnlessGranted('edit', $task);
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -77,6 +84,13 @@ class TaskController extends AbstractController
     #[Route('/tasks/{id}/delete', name: 'task_delete')]
     public function deleteTask(ManagerRegistry $doctrine, Task $task): Response
     {
+        // can the user delete this task ?
+        $hasAccess = $this->isGranted('delete', $task);
+        if (!$hasAccess) {
+            $this->addFlash('error', 'Accès non authorisé.');
+        }
+        $this->denyAccessUnlessGranted('delete', $task);
+
         $em = $doctrine->getManager();
         $em->remove($task);
         $em->flush();
