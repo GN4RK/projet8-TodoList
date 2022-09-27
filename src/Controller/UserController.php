@@ -16,12 +16,24 @@ class UserController extends AbstractController
     #[Route('/users', name: 'user_list')]
     public function list(ManagerRegistry $doctrine): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN');
+        if (!$hasAccess) {
+            $this->addFlash('error', 'Accès non authorisé.');
+        }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('user/list.html.twig', ['users' => $doctrine->getRepository(User::class)->findAll()]);
     }
 
     #[Route('/users/create', name: 'user_create')]
     public function create(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, Request $request): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN');
+        if (!$hasAccess) {
+            $this->addFlash('error', 'Accès non authorisé.');
+        }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -48,6 +60,12 @@ class UserController extends AbstractController
     #[Route('/users/{id}/edit', name: 'user_edit')]
     public function edit(ManagerRegistry $doctrine, User $user, UserPasswordHasherInterface $passwordHasher, Request $request): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN');
+        if (!$hasAccess) {
+            $this->addFlash('error', 'Accès non authorisé.');
+        }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);

@@ -20,6 +20,7 @@ class TaskType extends AbstractType
     {
         $this->security = $security;
     }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -31,23 +32,21 @@ class TaskType extends AbstractType
             $task = $event->getData();
             $form = $event->getForm();
 
-            $author = $this->security->getUser()->getUsername();
-    
-            // checks if the task object is "new"
-            // If no data is passed to the form, the data is "null".
-            // This should be considered a new "task"
             if (!$task || null === $task->getId()) {
+                // new task
+                $author = ($this->security->getUser() != null) ? $this->security->getUser()->getUsername() : null;
                 $form->add('author', TextType::class, [
                     'disabled' => 'true',
                     'data' => $author
                 ]);
-            } else {
 
+            } else {
+                // edit task
                 if ($task->getAuthor()->getId() == 0) {
                     $form->add('author', TextType::class, [
                         'data' => 'Anonyme',
                         'disabled' => 'true'
-                    ]);
+                    ]); // TODO voir anonymous user sur symfony
                 } else {
                     $form->add('author', EntityType::class, [
                         'class' => User::class,
