@@ -73,10 +73,18 @@ class TaskController extends AbstractController
     #[Route('/tasks/{id}/toggle', name: 'task_toggle')]
     public function toggleTask(ManagerRegistry $doctrine, Task $task): Response
     {
+        // can the user toggle this task ?
+        $hasAccess = $this->isGranted('toggle', $task);
+        if (!$hasAccess) {
+            $this->addFlash('error', 'Accès non authorisé.');
+        }
+        $this->denyAccessUnlessGranted('toggle', $task);
+
         $task->toggle(!$task->isDone());
         $doctrine->getManager()->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $state = $task->isDone() ? 'faite' : 'non terminée';
+        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme %s.', $task->getTitle(), $state));
 
         return $this->redirectToRoute('task_list');
     }

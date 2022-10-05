@@ -13,6 +13,7 @@ class TaskVoter extends Voter
     // these strings are just invented: you can use anything
     const EDIT = 'edit';
     const DELETE = 'delete';
+    const TOGGLE = 'toggle';
 
     private $security;
 
@@ -24,7 +25,7 @@ class TaskVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::EDIT, self::DELETE])) {
+        if (!in_array($attribute, [self::EDIT, self::DELETE, self::TOGGLE])) {
             return false;
         }
 
@@ -42,10 +43,11 @@ class TaskVoter extends Voter
 
         if (!$user instanceof User) {
             // the user must be logged in; if not, deny access
+            // this condition filter if the user can toggle a task
             return false;
         }
 
-        // ROLE_SUPER_ADMIN can do anything! The power!
+        // ROLE_ADMIN can do anything
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -59,6 +61,8 @@ class TaskVoter extends Voter
                 return $this->canEdit($task, $user);
             case self::DELETE:
                 return $this->canDelete($task, $user);
+            case self::TOGGLE:
+                return true; // filtered above with "if (!$user instanceof User)"
         }
 
         throw new \LogicException('This code should not be reached!');
