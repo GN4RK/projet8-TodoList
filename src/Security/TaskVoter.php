@@ -10,22 +10,15 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class TaskVoter extends Voter
 {
-    // these strings are just invented: you can use anything
     const EDIT = 'edit';
     const DELETE = 'delete';
     const TOGGLE = 'toggle';
-
-    private $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
+    const CREATE = 'create';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::EDIT, self::DELETE, self::TOGGLE])) {
+        if (!in_array($attribute, [self::EDIT, self::DELETE, self::TOGGLE, self::CREATE])) {
             return false;
         }
 
@@ -48,7 +41,7 @@ class TaskVoter extends Voter
         }
 
         // ROLE_ADMIN can do anything
-        if ($this->security->isGranted('ROLE_ADMIN')) {
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
             return true;
         }
 
@@ -62,6 +55,7 @@ class TaskVoter extends Voter
             case self::DELETE:
                 return $this->canDelete($task, $user);
             case self::TOGGLE:
+            case self::CREATE:
                 return true; // filtered above with "if (!$user instanceof User)"
         }
 
