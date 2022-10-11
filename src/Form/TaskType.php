@@ -46,7 +46,7 @@ class TaskType extends AbstractType
                     $form->add('author', TextType::class, [
                         'data' => 'Anonyme',
                         'disabled' => 'true'
-                    ]); // TODO voir anonymous user sur symfony
+                    ]);
                 } else {
                     $form->add('author', EntityType::class, [
                         'class' => User::class,

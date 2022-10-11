@@ -22,6 +22,14 @@ class TaskController extends AbstractController
     public function create(ManagerRegistry $doctrine, Request $request): Response
     {
         $task = new Task();
+
+        // can the user create a task ?
+        $hasAccess = $this->isGranted('create', $task);
+        if (!$hasAccess) {
+            $this->addFlash('error', 'Accès non authorisé.');
+        }
+        $this->denyAccessUnlessGranted('create', $task);
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
