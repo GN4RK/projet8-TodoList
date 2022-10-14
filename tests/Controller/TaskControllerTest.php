@@ -98,7 +98,7 @@ class TaskControllerTest extends WebTestCase
         $client->loginUser($testUser);
 
         $crawler = $client->request('GET', '/tasks/12/toggle');
-        // access denied
+        
         $this->assertResponseRedirects();
     }
 
