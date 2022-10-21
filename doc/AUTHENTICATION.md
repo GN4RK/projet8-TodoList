@@ -12,7 +12,23 @@ security:
                 property: 'username'
 ```
 
-Il y a une contrainte d'unicité sur le nom d'utilisateur et sur l'email
+Pour s'authentifier, un utilisateur doit se rendre sur la page /login et remplir les champs "Nom d'utilisateur" et "Mot de passe" du formulaire.
+
+Les différents utilisateurs enregistrés sur l'application sont sauvegardés dans la base de données dans la table user. Chaque entrée dans cette table est composée de :
+- l'ID de l'utilisateur (généré automatiquement lors de sa création)
+- un username unique
+- un mot de passe chiffré
+- un email unique
+- un tableau de roles permettant de gérer les droits d'accès de l'utilisateur
+
+Exemple :
+```
+id	username	password	                email	            roles
+1	yoann	    $2y$13$fdxcZGs48zHbS3...	test@gmail.com	    ["ROLE_ADMIN"]
+7	test5	    $2y$13$hdbkNqGULuaPIX...	test5@test.com	    ["ROLE_USER"]
+```
+
+La contrainte d'unicité sur le nom d'utilisateur et sur l'email est configurée dans l'entité User de l'application.
 
 ```php
 // src/Entity/User.php
@@ -89,4 +105,5 @@ protected function voteOnAttribute(string $attribute, mixed $subject, TokenInter
 }
 ```
 
+Pour ajouter les droits d'aministrateur à un utilisateur, il faut se rendre sur la page /users. Seuls les administrateurs de l'application ont accès à cette page.
 
