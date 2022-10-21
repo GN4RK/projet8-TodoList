@@ -14,13 +14,13 @@
 
 1. Soumettre une nouvelle Pull Request
 2. Verifier le résultat de l'analyse Codacy
-3. Attendre le merge de la Pull Request
+3. Attendre le merge de la Pull Request validé par un admin
 
 ## Standards à respecter
 
-- [PSR-1: Basic Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
-- [PSR-2: Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-- [PSR-4: Autoloading Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
+- [PSR-1: Basic Coding Standard](https://www.php-fig.org/psr/psr-1/)
+- [PSR-4: Autoloader](https://www.php-fig.org/psr/psr-4/)
+- [PSR-12: Extended Coding Style](https://www.php-fig.org/psr/psr-12/)
 - [Symfony Coding Standards](https://symfony.com/doc/current/contributing/code/standards.html)
 
 Merci !
