@@ -3,11 +3,9 @@
 namespace App\Tests\Form;
 
 use App\Entity\Task;
-use App\Form\UserType;
 use App\Entity\User;
 use App\Security\TaskVoter;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class TaskVoterTest extends TestCase

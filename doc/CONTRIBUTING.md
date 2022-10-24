@@ -4,7 +4,7 @@
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) du repository.
 2. Faire un [Checkout](https://git-scm.com/docs/git-checkout) sur la branche `master`.
-3. Suiver les instructions du fichier [README.md](https://github.com/GN4RK/projet8-TodoList/blob/master/README.md) pour installer le projet.
+3. Suivre les instructions du fichier [README.md](https://github.com/GN4RK/projet8-TodoList/blob/master/README.md) pour installer le projet.
 4. Créer une nouvelle branche pour la fonctionnalité a ajouter et se positionner sur cette branche.
 5. Coder la nouvelle fonctionnalité.
 6. Ajouter les tests unitaires et fonctionnels.
