@@ -17,8 +17,12 @@
                     <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
                     <p>{{ task.content }}</p>
                     <div class="pull-right">
-                        {% if task.author.id != 0 %}
-                            {{ task.author.username }}
+                        {% if task.author != null %}
+                            {% if task.author.id != 0 %}
+                                {{ task.author.username }}
+                            {% else %}
+                                <i>Anonyme</i>
+                            {% endif %}
                         {% else %}
                             <i>Anonyme</i>
                         {% endif %}

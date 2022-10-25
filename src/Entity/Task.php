@@ -28,8 +28,7 @@ class Task
     #[ORM\Column(type: 'boolean')]
     private $isDone;
 
-    #[ORM\ManyToOne(inversedBy: 'tasks')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'tasks', cascade: ['persist'])]
     private ?User $author = null;
 
     public function __construct()
