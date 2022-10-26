@@ -20,7 +20,7 @@ class TaskControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/tasks/create');
         // access denied
-        $this->assertResponseRedirects();
+        $this->assertResponseRedirects('http://localhost/login');
     }
 
     public function testCreateLoggedUser(): void
@@ -50,7 +50,7 @@ class TaskControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/tasks/12/edit');
         // access denied
-        $this->assertResponseRedirects();
+        $this->assertResponseRedirects('http://localhost/login');
     }
 
     public function testEditAuthor(): void
@@ -80,7 +80,7 @@ class TaskControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/tasks/12/toggle');
         // access denied
-        $this->assertResponseRedirects();
+        $this->assertResponseRedirects('http://localhost/login');
     }
 
     public function testToggleLoggedUser(): void
@@ -105,7 +105,7 @@ class TaskControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/tasks/12/delete');
         // access denied
-        $this->assertResponseRedirects();
+        $this->assertResponseRedirects('http://localhost/login');
     }
 
 }
